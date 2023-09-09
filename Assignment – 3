@@ -1,0 +1,339 @@
+# ASSIGNMENT3                                                                                   |
+Topics – Friend Functions, Array of Objects, “this”, Passing References,  Returning References  |
+________________________________________________________________________________________________|
+Friend Functions |
+_________________|
+1. Create a class called "Time" with private attributes "hours" and "minutes". Add a friend 
+function named "sumTimes" that takes two "Time" objects as parameters and returns a new 
+"Time" object that represents the sum of the two times. Then, write a program to demonstrate 
+the usage of the friend function.
+
+solving:
+#include <iostream>
+using namespace std;
+class time {
+int hr,min;
+public:
+time(int h, int m):hr(h),min(m){}
+friend time sumtime(const time &t1, const time &t2); //declaring friend function
+void display() const {
+    cout<<hr<<":"<<min<<endl;
+
+}
+
+};
+//declaring friend function 
+time sumtime(const time &t1, const time &t2){
+int totalmin= t1.min+t2.min;
+int carryhours= totalmin/60;
+int finalmin= totalmin%60;
+int totalhr= t1.hr+t2.hr+carryhours;
+
+return time (totalhr, finalmin);
+}
+int main(){
+    int h1,m1,h2,m2;
+    cout<<"enter two times ="<<endl;
+cin>>h1>>m1>>h2>>m2;
+
+time time1(h1,m1), time2(h2,m2);
+
+cout<<"time1 is = ";
+time1.display();
+cout<<"time2 is =";
+time2.display();
+time total = sumtime(time1,time2);
+cout<<"total time is = ";
+total.display();
+return 0;
+
+}
+________________________________________________________________________________________________________________________________________________________________
+2) Create a class called "Matrix" to represent a 2x2 matrix with private attributes "m11", "m12",
+"m21", and "m22". Add a friend function named "transpose" that takes a "Matrix" object as a 
+parameter and returns a new "Matrix" object that represents the transpose of the original 
+matrix. The transpose of a matrix is obtained by swapping its rows and columns. Write a 
+program to demonstrate the usage of the friend function.
+
+solving:
+#include <bits/stdc++.h>
+using namespace std;
+class matrix{
+double  m11,m12,m21,m22;
+public:
+matrix(double m1, double m2, double m3, double m4): m11(m1),m12(m2),m21(m3),m22(m4){}
+friend matrix transposed (const  matrix& matr);
+void display(){
+cout<<m11<<" "<<m12<<endl;
+cout<<m21<<" "<<m22<<endl;}
+};
+matrix transposed (const matrix& matr){
+return matrix(matr.m11,matr.m21,matr.m12,matr.m22);
+
+}
+int main(){
+double a,b,c,d;
+cout<<"enter elements for 2x2 matrix ="<<endl;
+cin>>a>>b>>c>>d;
+matrix ori(a,b,c,d);
+cout<<"original matrix = "<<endl;
+ori.display();
+matrix transed =  transposed(ori);
+cout<<"transposed matrix ="<<endl;
+transed.display();
+    return 0;
+}
+________________________________________________________________________________________________________________________________________________________________
+3. Create a class called "Car" with private attributes "make" and "model". Add a friend function 
+named "displayCarInfo" that takes a "Car" object as a parameter and displays the make and 
+model of the car. Write a program to demonstrate the usage of the friend function.
+
+solving:
+
+#include <bits/stdc++.h>
+using namespace std;
+class car {
+    string make , model;
+    public:
+    car(const string& make, const string& model ): make(make),model(model){}
+    friend void display(const car & amargari);};
+
+void display(const car & amargari)
+{cout<<"make = "<<amargari.make<<endl;
+cout<<"model = "<<amargari.model<< endl;
+
+}
+int main(){
+string m ,j;
+cout<<"enter make =";
+cin>>m;
+cout<<"enter model=";
+cin>>j;
+car amargarinai(m,j);
+cout<<"car informations ="<<endl;
+display( amargarinai);
+    return 0;
+}
+________________________________________________________________________________________________________________________________________________________________
+Static Member Functions|
+_______________________|
+4. Create a class called Shape with a static member function static double area(double radius). 
+This function should take the radius of a circle as input and return the area of the circle (π * 
+radius^2).
+In your main function, take input from the user for the radius of a circle and use the area 
+function to calculate and print the area of the circle.
+
+solving :
+#include <iostream>
+using namespace std;
+class shape{
+    public:
+ static double area(double radius){
+    return 3.1416*(radius*radius);
+ }};
+int main(){
+double r;
+cout<<"enter radius of the circle = ";
+cin>>r;
+double circlearea= shape:: area(r);
+cout<<"the radius is = "<< circlearea<<endl;
+    return 0;
+}
+________________________________________________________________________________________________________________________________________________________________
+Array of Objects|
+________________|
+5. Create a class called “Rectangle” with the following private members:
+• double length
+• double width
+The class should have a constructor that takes arguments to initialize the private members. Add 
+a public member function called getArea() that calculates and returns the area of the rectangle 
+(length * width).
+In your main function, create an array of Rectangle objects with a size of 5. Prompt the user to 
+enter the length and width of each rectangle and store them in the array. Then, loop through 
+the array and call the getArea() function for each rectangle to display its area. 
+
+solving:
+#include <iostream>
+using namespace std;
+class rectangle {
+double length,weidth;
+public:
+rectangle(double l=0.0,double w=0.0):length(l),weidth(w){}
+double getarea ()const{
+    return length*weidth;
+}
+};
+int main(){ 
+double len,wed;
+rectangle rec[5];
+for(int i=0;i<5;i++){
+cout<<"cutie length de "<<i+1<<":";
+cin>>len;
+cout<<"cutie weidth de"<<i+1<<":";
+cin>>wed;
+rec[i] =rectangle(len, wed);
+}
+for(int i=0;i<5;i++){
+double areas = rec[i].getarea();
+
+cout<<" bedi dekh rectangle area "<<i+1<< " = "<<areas<<endl;}
+
+    return 0;
+}
+________________________________________________________________________________________________________________________________________________________________
+6) . Create a class called Cell with a private member variable int value.
+• Create a 2D array of Cell objects with dimensions 3x3. Initialize each Cell with a value of 0.
+• In your main function, demonstrate how to access and modify the values of the Cell objects in the 2D array.
+solving :
+#include <iostream>
+using namespace std;
+class cell{
+int value;
+public:
+cell():value(0){};
+
+int getvalue() const {
+return value;
+
+}
+void setvalue(int newvalue){
+    value= newvalue;
+}
+
+};
+int main(){ 
+cell grid[3][3];
+for(int i=0;i<3;i++){
+for(int j=0;j<3;j++){
+    grid[i][j].setvalue(0);
+}
+}
+ // Access and modify the values of the Cell objects
+    grid[0][0].setvalue(1);
+    grid[0][1].setvalue(2);
+    grid[0][2].setvalue(3);
+    grid[1][0].setvalue(4);
+    grid[1][1].setvalue(5);
+    grid[1][2].setvalue(6);
+      grid[2][0].setvalue(7);
+    grid[2][1].setvalue(8);
+    grid[2][2].setvalue(9); 
+
+for(int i=0;i<3;i++){
+for(int j=0;j<3;j++){
+   cout<<grid[i][j].getvalue()<<" ";
+}
+cout<<endl;
+}   return 0;
+}
+__________________________________________________________________________________________________________________________________________________________________
+this Pointer |
+_____________|
+7. Create a class called Rectangle with private member variables width and height.
+• Add member functions to set the values of width and height (setter functions). These 
+functions should use the this pointer to set the member variables.
+• Create a member function called getArea() that calculates and returns the area of the 
+rectangle (width * height). This function should also use the this pointer to access the 
+member variables.
+• In the main function, create a Rectangle object, set its width and height using the setter 
+functions, and then calculate and print its area using the getArea() function.
+
+solving:
+#include <iostream>
+using namespace std;
+class rectangle{
+double height,width;
+public:
+void settinghw(double height, double width){
+    this->height=height;
+    this->width=width;
+}
+double gettarea() const{
+return this->height* this->width;}
+};
+int main(){
+rectangle l;
+double h,w,area;
+cout<<"enter height and width =";
+cin>>h>>w;
+l.settinghw(h,w);
+area= l.gettarea();
+cout<<"area ="<<area;
+ return 0;
+}
+_______________________________________________________________________________________________________________________________________________________________
+Passing References|
+__________________|
+8. Create a function called swapNumbers that takes two integer references as input and swaps 
+their values.
+In the main function, prompt the user to enter two integers. Call the swapNumbers function 
+with the two integers as arguments and print the values after the swap.
+
+solving:
+
+#include <iostream>
+using namespace std;
+
+void swapNumbers(int& a, int& b) {
+    int temp = a;
+    a = b;
+    b = temp;
+}
+
+int main(){ 
+int n , b;
+cout<<"enter 2  values  =";
+cin>>n>>b;
+swapNumbers(n,b);
+cout<<"after swapping ="<<n<<" "<<b;
+
+    return 0;
+}
+________________________________________________________________________________________________________________________________________________________________
+Returning References|
+____________________|
+9. Create a function called getSquare that takes an integer as input and returns a reference to the 
+square of that integer.
+In the main function, prompt the user to enter an integer. Call the getSquare function with the 
+input as an argument and print the square value directly using the returned reference. 
+
+solving:
+#include <iostream>
+using namespace std;
+int getsquare(int & num) {
+int square =num*num;
+return square;}
+int main(){ 
+int n;
+cout<<"enter a value =";
+cin>>n;
+int res = getsquare(n);
+cout<<"the square is = "<<res<<endl;
+ return 0;
+}
+
+
+$$$$% %%%%%%% %%%%%### ##### ########$$$$$$$$$$$$$$ $@@@@ @@@@ @@@  THE END STUPIDOS XD    +++++++++^^^^^^^^^^^ **********&&&&&&&&&&&&&&^^^^$$$$$$##########
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
